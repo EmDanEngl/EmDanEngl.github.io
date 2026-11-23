@@ -10,7 +10,7 @@ I created a new virtual machine in Proxmox using Fedora Server 43 without a desk
 
 I created my first snapshot before making changes.
 
-SCREENSHOT!!!!!!!!!!!!!! PROXMOX SNAPSHOTS
+![Proxmox VM snapshots](images/proxmox-snapshots.png)
 
 After starting the VM and completing the initial setup, I checked the internet connection:
 
@@ -72,7 +72,7 @@ Finally, I checked the Docker Compose version:
 docker compose version
 ```
 
-SCREENSHOT!!!!!!!!!!!!!! DOCKER INSTALLATION TEST
+![Docker installation test](images/docker-installation.png)
 
 ## 3. Setting Up Uptime Kuma
 
@@ -114,7 +114,7 @@ I checked that the container was running:
 sudo docker compose ps
 ```
 
-SCREENSHOT!!!!!!!!!!!!!! DOCKER COMPOSE STATUS
+![Uptime Kuma container status](images/docker-compose-ps.png)
 
 I accessed Uptime Kuma through a browser using:
 
@@ -122,7 +122,7 @@ I accessed Uptime Kuma through a browser using:
 
 I created an administrator account and selected SQLite as the database. I also added website monitors to test the application.
 
-SCREENSHOT!!!!!!!!!!!!!! UPTIME KUMA DASHBOARD
+![Uptime Kuma dashboard](images/uptime-kuma-dashboard.png)
 
 ## 4. Securing the Virtual Machine
 
@@ -179,7 +179,7 @@ sudo systemctl restart sshd
 
 I tested the connection using my SSH key. I also tested password-only authentication to make sure it was refused.
 
-SCREENSHOT!!!!!!!!!!!!!! SSH PASSWORD AUTHENTICATION REFUSED
+![SSH password authentication refused](images/ssh-password-refused.png)
 
 ### Firewall
 
@@ -210,7 +210,7 @@ I checked the firewall configuration:
 sudo firewall-cmd --zone=FedoraServer --list-all
 ```
 
-SCREENSHOT!!!!!!!!!!!!!! FIREWALL CONFIG
+![Firewall configuration](images/firewall-status.png)
 
 ### Automatic Security Updates
 
@@ -252,7 +252,11 @@ I checked its status:
 systemctl status dnf5-automatic.timer
 ```
 
-SCREENSHOT!!!!!!!!!!!!!! AUTOMATIC UPDATE TIMER
+![Automatic update timer](images/automatic-update-timer.png)
+
+I also checked the automatic update configuration:
+
+![Automatic update configuration](images/automatic-update-config.png)
 
 ## 5. Creating Backups
 
@@ -307,7 +311,7 @@ echo "Backup complete!"
 
 The script stops Uptime Kuma, makes a tar file of its data, and starts the application again. It also removes older backups so only the seven newest remain. 
 
-SCREENSHOT!!!!!!!!!!!!!! BACKUP SCRIPT
+![Backup script](images/backup-script.png)
 
 I made the script executable:
 
@@ -327,13 +331,13 @@ I checked the backup directory to make sure the archive was created:
 sudo ls -lh /var/backups/uptime-kuma/
 ```
 
-SCREENSHOT!!!!!!!!!!!!!! BACKUP ARCHIVE LIST
+![Backup archive listing](images/backup-files.png)
 
 ## 6. Proxmox VM Backup
 
 I also created a backup of the entire virtual machine through Proxmox. I opened the VM's **Backup** tab, selected **Backup now**, and used Snapshot mode.
 
-SCREENSHOT!!!!!!!!!!!!!! PROXMOX VM BACKUP
+![Proxmox VM backup](images/proxmox-backup.png)
 
 ## 7. Testing the Restore Process
 
@@ -388,4 +392,4 @@ The Uptime Kuma container was running, and I was able to access the application 
 
 ## Conclusion
 
-For this assignment, I set up a Fedora Server VM, installed Docker, and deployed Uptime Kuma using Docker Compose. I also configured SSH key authentication, the firewall, and automatic security updates. Lastly, I made a backup script, backed up the VM in Proxmox, and tested restoring the application data from a backup.
+For this assignment, I set up a Fedora Server VM, installed Docker, and set up Uptime Kuma using Docker Compose. I also configured SSH key authentication, the firewall, and automatic security updates. Lastly, I made a backup script, backed up the VM in Proxmox, and tested restoring the application data from a backup.
