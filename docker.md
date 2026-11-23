@@ -10,6 +10,8 @@ I created a new virtual machine in Proxmox using Fedora Server 43 without a desk
 
 I created my first snapshot before making changes.
 
+SCREENSHOT!!!!!!!!!!!!!! PROXMOX SNAPSHOTS
+
 After starting the VM and completing the initial setup, I checked the internet connection:
 
 ```bash
@@ -70,6 +72,8 @@ Finally, I checked the Docker Compose version:
 docker compose version
 ```
 
+SCREENSHOT!!!!!!!!!!!!!! DOCKER INSTALLATION TEST
+
 ## 3. Setting Up Uptime Kuma
 
 I created a directory for the application:
@@ -110,11 +114,15 @@ I checked that the container was running:
 sudo docker compose ps
 ```
 
+SCREENSHOT!!!!!!!!!!!!!! DOCKER COMPOSE STATUS
+
 I accessed Uptime Kuma through a browser using:
 
 `http://10.30.56.100:3001`
 
 I created an administrator account and selected SQLite as the database. I also added website monitors to test the application.
+
+SCREENSHOT!!!!!!!!!!!!!! UPTIME KUMA DASHBOARD
 
 ## 4. Securing the Virtual Machine
 
@@ -145,11 +153,10 @@ I created a configuration file to disable password authentication:
 sudo nano /etc/ssh/sshd_config.d/00-local.conf
 ```
 
-I added these settings:
+I made this change in sshd_config
 
 ```text
 PasswordAuthentication no
-KbdInteractiveAuthentication no
 ```
 
 I checked the configuration for errors:
@@ -171,6 +178,8 @@ sudo systemctl restart sshd
 ```
 
 I tested the connection using my SSH key. I also tested password-only authentication to make sure it was refused.
+
+SCREENSHOT!!!!!!!!!!!!!! SSH PASSWORD AUTHENTICATION REFUSED
 
 ### Firewall
 
@@ -200,6 +209,8 @@ I checked the firewall configuration:
 ```bash
 sudo firewall-cmd --zone=FedoraServer --list-all
 ```
+
+SCREENSHOT!!!!!!!!!!!!!! FIREWALL CONFIG
 
 ### Automatic Security Updates
 
@@ -240,6 +251,8 @@ I checked its status:
 ```bash
 systemctl status dnf5-automatic.timer
 ```
+
+SCREENSHOT!!!!!!!!!!!!!! AUTOMATIC UPDATE TIMER
 
 ## 5. Creating Backups
 
@@ -294,6 +307,8 @@ echo "Backup complete!"
 
 The script stops Uptime Kuma, makes a tar file of its data, and starts the application again. It also removes older backups so only the seven newest remain. 
 
+SCREENSHOT!!!!!!!!!!!!!! BACKUP SCRIPT
+
 I made the script executable:
 
 ```bash
@@ -312,9 +327,13 @@ I checked the backup directory to make sure the archive was created:
 sudo ls -lh /var/backups/uptime-kuma/
 ```
 
+SCREENSHOT!!!!!!!!!!!!!! BACKUP ARCHIVE LIST
+
 ## 6. Proxmox VM Backup
 
 I also created a backup of the entire virtual machine through Proxmox. I opened the VM's **Backup** tab, selected **Backup now**, and used Snapshot mode.
+
+SCREENSHOT!!!!!!!!!!!!!! PROXMOX VM BACKUP
 
 ## 7. Testing the Restore Process
 
